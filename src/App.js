@@ -1,23 +1,26 @@
-import logo from './logo.svg';
+import { Route, Switch } from 'react-router-dom';
+
+import NotFound from './pages/not-found'
+import Home from './pages/home'
+import Comments from './pages/comments'
+import 'antd/dist/antd.css'; // or 'antd/dist/antd.less'
 import './App.css';
+
+import { Provider } from 'react-redux';
+import configureStore from './store/configureStore'
+
+const store = configureStore();
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Provider store={store} >
+        <Switch>
+          <Route exact path="/" component={Home}></Route>
+          <Route exact path="/comments" component={Comments}></Route>
+          <Route component={NotFound}></Route>
+        </Switch>
+      </Provider>
     </div>
   );
 }
